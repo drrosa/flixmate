@@ -11,7 +11,11 @@
   <nav>
     <a href="/">Home</a>
     &nbsp;|&nbsp;
-    <a href="/examples/new">New Example</a>
-    &nbsp;|&nbsp;
     <a href="/examples">All Examples</a>
+    <% if (user) { %>
+      <a href="/examples/new" <%- title === 'Add Example' ? 'class="active"' : '' %>>ADD EXAMPLE</a>
+      <a href="/logout">LOG OUT</a>
+    <% } else { %>
+      <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
+    <% } %>
   </nav>
