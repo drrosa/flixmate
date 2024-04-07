@@ -4,18 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mongoose Examples</title>
+  <title><%= title %></title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
   <nav>
     <a href="/">Home</a>
     &nbsp;|&nbsp;
-    <a href="/examples">All Examples</a>
+    <a href="/movies">All Movies</a>
     <% if (user) { %>
-      <a href="/examples/new" <%- title === 'Add Example' ? 'class="active"' : '' %>>ADD EXAMPLE</a>
+      <a href="/movies/new" <%- title === 'Add Movie' ? 'class="active"' : '' %>>ADD MOVIE</a>
       <a href="/logout">LOG OUT</a>
     <% } else { %>
       <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
     <% } %>
   </nav>
+  <main>
+    <h1><%= title %></h1>
