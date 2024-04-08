@@ -1,13 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Create the schema
 const movieSchema = new Schema({
-
+  imdbID: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  userRating: {
+    type: Number,
+    min: 1,
+    max: 10,
+    default: null,
+  },
+  recID: {
+    type: Schema.Types.ObjectId,
+    ref: 'Recommendation',
+  },
 }, {
-// automatically adds createdAt and updatedAt fields to every document
     timestamps: true
 });
 
-// Compile the schema into a model, and export the model.
 module.exports = mongoose.model('Movie', movieSchema);
