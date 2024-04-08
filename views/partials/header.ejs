@@ -9,11 +9,11 @@
 </head>
 <body>
   <nav>
-    <a href="/">Home</a>
+    <a href="/">HOME</a>
     &nbsp;|&nbsp;
-    <a href="/movies">All Movies</a>
+    <a href="/movies" <%- title === 'My Movies' ? 'class="active"' : '' %>>MY MOVIES</a>
     <% if (user) { %>
-      <a href="/movies/new" <%- title === 'Add Movie' ? 'class="active"' : '' %>>ADD MOVIE</a>
+      &nbsp;|&nbsp;
       <a href="/logout">LOG OUT</a>
     <% } else { %>
       <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
