@@ -17,3 +17,14 @@ a {
 .login img {
   height: 30px;
 }
+
+form {
+  margin-bottom: 2vmin;
+}
+
+#new-movie, #movie-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
