@@ -8,10 +8,10 @@ const thumbsUpSchema = new Schema({
     unique: true
   },
   description: String,
-  movies: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Movie'
-  }],
+  movies: {
+    type: Map,
+    of: Schema.Types.ObjectId
+  },
 }, {
   timestamps: true
 });
