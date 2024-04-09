@@ -22,7 +22,7 @@ form {
   margin-bottom: 2vmin;
 }
 
-#new-movie, #movie-info{
+#new-movie, #movie-info, #movie-list{
   display: flex;
   flex-direction: column;
   justify-content: center;

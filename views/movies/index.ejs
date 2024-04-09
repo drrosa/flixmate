@@ -11,4 +11,25 @@
   <div id="movie-info"></div>
 </section>
 
+<div id="movie-list">
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Release<br>Year</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% movies.forEach(function(m) {  %>
+        <tr>
+          <td><%= m.Title %></td>
+          <td><%= m.Year %></td>
+          <td><a href="/movies/<%= m.imdbID %>">DETAILS</a></td>
+        </tr>
+        <% }); %>
+    </tbody>
+  </table>
+</div>
+
 <%- include('../partials/footer') %>
