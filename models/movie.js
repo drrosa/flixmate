@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const movieSchema = new Schema({
   imdbID: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   userRating: {
     type: Number,
@@ -18,7 +19,7 @@ const movieSchema = new Schema({
     ref: 'Recommendation',
   },
 }, {
-    timestamps: true
+  timestamps: true,
 });
 
 module.exports = mongoose.model('Movie', movieSchema);

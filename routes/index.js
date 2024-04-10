@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 const passport = require('passport');
 
+const router = express.Router();
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res) => {
   res.render('index', { title: 'Flixmate' });
 });
 
@@ -12,8 +13,8 @@ router.get('/auth/google', passport.authenticate(
   'google',
   {
     scope: ['profile', 'email'],
-    prompt: "select_account"
-  }
+    prompt: 'select_account',
+  },
 ));
 
 // Google OAuth callback route
@@ -21,13 +22,13 @@ router.get('/oauth2callback', passport.authenticate(
   'google',
   {
     successRedirect: '/movies',
-    failureRedirect: '/'
-  }
+    failureRedirect: '/',
+  },
 ));
 
 // OAuth logout route
-router.get('/logout', function(req, res){
-  req.logout(function() {
+router.get('/logout', (req, res) => {
+  req.logout(() => {
     res.redirect('/');
   });
 });

@@ -1,28 +1,29 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const thumbsUpSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   description: String,
   movies: {
     type: Map,
     of: Schema.Types.ObjectId,
     ref: 'Movie',
-    default: {}
+    default: {},
   },
 }, {
-  timestamps: true
+  timestamps: true,
 });
 
 const toWatchSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   description: String,
   userPrompt: Map,
@@ -31,17 +32,17 @@ const toWatchSchema = new Schema({
     type: Map,
     of: Schema.Types.ObjectId,
     ref: 'Recommendation',
-    default: {}
+    default: {},
   },
 }, {
-  timestamps: true
+  timestamps: true,
 });
 
 const userSchema = new Schema({
   name: String,
   googleId: {
     type: String,
-    required: true
+    required: true,
   },
   email: String,
   avatar: String,
@@ -52,10 +53,10 @@ const userSchema = new Schema({
     type: Map,
     of: Schema.Types.ObjectId,
     ref: 'Movie',
-    default: {}
+    default: {},
   },
 }, {
-  timestamps: true
+  timestamps: true,
 });
 
 module.exports = mongoose.model('User', userSchema);

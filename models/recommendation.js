@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const recommendationSchema = new Schema({
   imdbID: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   reasoning: {
     type: String,
@@ -20,7 +21,7 @@ const recommendationSchema = new Schema({
     default: false,
   },
 }, {
-    timestamps: true
+  timestamps: true,
 });
 
 module.exports = mongoose.model('Recommendation', recommendationSchema);
