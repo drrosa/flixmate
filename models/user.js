@@ -10,7 +10,9 @@ const thumbsUpSchema = new Schema({
   description: String,
   movies: {
     type: Map,
-    of: Schema.Types.ObjectId
+    of: Schema.Types.ObjectId,
+    ref: 'Movie',
+    default: {}
   },
 }, {
   timestamps: true
@@ -25,10 +27,12 @@ const toWatchSchema = new Schema({
   description: String,
   userPrompt: Map,
   presets: Map,
-  recommendations: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Recommendation'
-  }],
+  recommendations: {
+    type: Map,
+    of: Schema.Types.ObjectId,
+    ref: 'Recommendation',
+    default: {}
+  },
 }, {
   timestamps: true
 });
@@ -44,10 +48,12 @@ const userSchema = new Schema({
   openaiKey: String,
   thumbsUp: [thumbsUpSchema],
   toWatch: [toWatchSchema],
-  thumbsDown: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Movie'
-  }],
+  thumbsDown: {
+    type: Map,
+    of: Schema.Types.ObjectId,
+    ref: 'Movie',
+    default: {}
+  },
 }, {
   timestamps: true
 });
