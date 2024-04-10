@@ -5,7 +5,7 @@
  */
 
 var app = require('../server');
-var debug = require('debug')('my-movies:server');
+var debug = require('debug')('flixmate:server');
 var http = require('http');
 
 /**
