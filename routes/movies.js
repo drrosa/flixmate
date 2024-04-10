@@ -7,5 +7,7 @@ const ensureLoggedIn = require('../config/ensureLoggedIn');
 router.get('/', ensureLoggedIn, moviesCtrl.index);
 // GET /movies/search
 router.get('/search', moviesCtrl.search);
+// POST /movies
+router.post('/', ensureLoggedIn, moviesCtrl.create);
 
 module.exports = router;

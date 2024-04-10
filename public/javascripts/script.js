@@ -32,6 +32,9 @@ async function handleGetData(event) {
 
 function render(data) {
   movieInfo.innerHTML = `
+        <form action="/movies" method="POST">
+          <button type="submit">Add Movie</button>
+        </form>
         <img src="${data.Poster} alt="${data.Title}" />
         <h3>${data.Title} (${data.Year})</h3>
     `;
