@@ -5,15 +5,16 @@ const { API_KEY } = process.env;
 const URL = `https://www.omdbapi.com/?apikey=${API_KEY}`;
 let user = null;
 let data = null;
+let movieList = null;
 
 async function index(req, res) {
   if (!user) user = await User.findById(req.user.id);
   const imdbIDs = Array.from(user.thumbsUp[0].movies.keys());
-  const movies = await Promise.all(imdbIDs.map(async (imdbID) => {
+  movieList = await Promise.all(imdbIDs.map(async (imdbID) => {
     const response = await fetch(`${URL}&i=${imdbID}`);
     return response.json();
   }));
-  res.render('movies/index', { title: 'My Movies', movies });
+  res.render('movies/index', { title: 'My Movies', movieList });
 }
 
 async function search(req, res) {
@@ -27,7 +28,7 @@ async function create(req, res) {
   const { movies } = user.thumbsUp[0];
   const movie = await Movie.findOneAndUpdate(
     { imdbID: data.imdbID },
-    { $setOnInsert: { imdbID: data.imdbID } },
+    { $setOnInsert: { imdbID: data.imdbID, title: data.Title } },
     { upsert: true, new: true, runValidators: true },
   );
   if (!movies.has(movie.imdbID)) {

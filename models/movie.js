@@ -8,6 +8,10 @@ const movieSchema = new Schema({
     required: true,
     unique: true,
   },
+  title: {
+    type: String,
+    required: true,
+  },
   userRating: {
     type: Number,
     min: 1,

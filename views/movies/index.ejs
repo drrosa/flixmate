@@ -1,13 +1,21 @@
 <%- include('../partials/header') %>
 
 <section id="new-movie">
-  <h3>Add a new movie:</h3>
+  <% if (title === 'My Movies') { %>
+      <h3>Add a new movie:</h3>
+      <form>
+        <input type="text" placeholder="Movie Title" required />
+        <button type="submit">Search</button>
+      </form>
+      <div id="movie-info"></div>
+  <% } %>
 
-  <form>
-    <input type="text" placeholder="Movie Title" required />
-    <button type="submit">Search</button>
-  </form>
-  <div id="movie-info"></div>
+  <% if (title === 'To Watch') { %>
+    <h3>Get new movie recommendations</h3>
+    <form action="/recommends" method="GET">
+      <button type="submit">I'm feeling lucky!</button>
+    </form>
+  <% } %>
 </section>
 
 <div id="movie-list">
@@ -20,11 +28,10 @@
       </tr>
     </thead>
     <tbody>
-      <% movies.forEach(function(m) {  %>
+      <% movieList.forEach(function(movie, idx) {  %>
         <tr>
-          <td><%= m.Title %></td>
-          <td><%= m.Year %></td>
-          <td><a href="/movies/<%= m.imdbID %>">DETAILS</a></td>
+          <td><a href="<%- title === 'My Movies' ? '/movies/' : '/recommends/' %><%= idx %>"><%= movie.Title %></a></td>
+          <td><%= movie.Year %></td>
         </tr>
         <% }); %>
     </tbody>
