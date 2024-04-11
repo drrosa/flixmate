@@ -46,6 +46,12 @@ async function index(req, res) {
   res.render('movies/index', { title: 'To Watch', movieList });
 }
 
+function show(req, res) {
+  const movie = movieList[req.params.id];
+  res.render('movies/show', { title: 'Movie Details', movie });
+}
+
 module.exports = {
   index,
+  show,
 };

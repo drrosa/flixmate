@@ -30,7 +30,7 @@
     <tbody>
       <% movieList.forEach(function(movie, idx) {  %>
         <tr>
-          <td><a href="/movies/<%= idx %>"><%= movie.Title %></a></td>
+          <td><a href="<%- title === 'My Movies' ? '/movies/' : '/recommends/' %><%= idx %>"><%= movie.Title %></a></td>
           <td><%= movie.Year %></td>
         </tr>
         <% }); %>

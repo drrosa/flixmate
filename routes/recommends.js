@@ -6,5 +6,7 @@ const router = express.Router();
 
 // GET /recommends
 router.get('/', ensureLoggedIn, recommendsCtrl.index);
+// GET /recommends/:id
+router.get('/:id', ensureLoggedIn, recommendsCtrl.show);
 
 module.exports = router;
