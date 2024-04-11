@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+
+  <div id="movie-detail">
+    <img src="<%= movie.Poster %>" alt="<%= movie.Title %>"/>
+    <h3><%= movie.Title %> (<%= movie.Year %>)</h3>
+    <p><span>Rated:</span> <%= movie.Rated %></p>
+    <p><span>Released:</span> <%= movie.Released %></p>
+    <p><span>Runtime:</span> <%= movie.Runtime %></p>
+    <p><span>Genre:</span> <%= movie.Genre %></p>
+    <p><span>Director:</span> <%= movie.Director %></p>
+    <p><span>Writer:</span> <%= movie.Writer %></p>
+    <p><span>Actors:</span> <%= movie.Actors %></p>
+    <p><span>Plot:</span> <%= movie.Plot %></p>
+    <p><span>Country:</span> <%= movie.Country %></p>
+    <p><span>Awards:</span> <%= movie.Awards %></p>
+    <p><span>Metascore:</span> <%= movie.Metascore %></p>
+    <p><span>IMDb Rating:</span> <%= movie.imdbRating %></p>
+  </div>
+
+<%- include('../partials/footer') %>

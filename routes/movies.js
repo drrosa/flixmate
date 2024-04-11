@@ -8,6 +8,8 @@ const router = express.Router();
 router.get('/', ensureLoggedIn, moviesCtrl.index);
 // GET /movies/search
 router.get('/search', moviesCtrl.search);
+// GET /movies/:id
+router.get('/:id', ensureLoggedIn, moviesCtrl.show);
 // POST /movies
 router.post('/', ensureLoggedIn, moviesCtrl.create);
 

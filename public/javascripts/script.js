@@ -13,7 +13,7 @@ function render(data) {
         <form action="/movies" method="POST">
           <button type="submit">Add Movie</button>
         </form>
-        <img src="${data.Poster} alt="${data.Title}" />
+        <img src="${data.Poster}" alt="${data.Title}" />
         <h3>${data.Title} (${data.Year})</h3>
     `;
 }

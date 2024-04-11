@@ -17,6 +17,11 @@ async function index(req, res) {
   res.render('movies/index', { title: 'My Movies', movieList });
 }
 
+function show(req, res) {
+  const movie = movieList[req.params.id];
+  res.render('movies/show', { title: 'Movie Details', movie });
+}
+
 async function search(req, res) {
   const movieSearchTerm = req.query.t;
   const response = await fetch(`${URL}&t=${movieSearchTerm}`);
@@ -42,6 +47,7 @@ async function create(req, res) {
 
 module.exports = {
   index,
+  show,
   search,
   create,
 };

@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 2vmin
 }
 
 a {
@@ -27,4 +28,39 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+table {
+  border-spacing: 2vmin;
+}
+
+#movie-detail {
+  background-color: #f9f9f9;
+  padding: 3vmin;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#movie-detail img {
+  max-width: 100%;
+  border-radius: 1vmin;
+  margin: 0 auto 2vmin;
+}
+
+#movie-detail h3 {
+  color: #333;
+  font-size: 1.5rem;
+  margin: 0 auto 2vmin;
+}
+
+#movie-detail p {
+  color: #555;
+  margin-bottom: 2vmin;
+  text-align: left;
+  max-width: 30%;
+}
+
+#movie-detail span {
+  font-weight: bold;
 }
