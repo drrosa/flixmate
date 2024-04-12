@@ -8,7 +8,7 @@ let data = null;
 let movieList = null;
 
 async function index(req, res) {
-  if (!user) user = await User.findById(req.user.id);
+  user = await User.findById(req.user.id);
   const imdbIDs = Array.from(user.thumbsUp[0].movies.keys());
   movieList = await Promise.all(imdbIDs.map(async (imdbID) => {
     const response = await fetch(`${URL}&i=${imdbID}`);

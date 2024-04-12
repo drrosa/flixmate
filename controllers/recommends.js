@@ -1,15 +1,33 @@
 const { OpenAI } = require('openai');
 const User = require('../models/user');
+const Recommendation = require('../models/recommendation');
 
 const { API_KEY } = process.env;
 const { OPENAI_API_KEY } = process.env;
 const { GPT_MODEL } = process.env;
 const { PROMPT } = process.env;
-const openai = new OpenAI();
-openai.api_key = OPENAI_API_KEY;
 const URL = `https://www.omdbapi.com/?apikey=${API_KEY}`;
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 let user = null;
 let movieList = null;
+
+async function index(req, res) {
+  user = await User.findById(req.user.id).populate({
+    path: 'thumbsUp.0.movies.$*',
+    select: 'title -_id',
+  });
+  const imdbIDs = Array.from(user.toWatch[0].movies.keys());
+  movieList = await Promise.all(imdbIDs.map(async (imdbID) => {
+    const response = await fetch(`${URL}&i=${imdbID}`);
+    return response.json();
+  }));
+  res.render('movies/index', { title: 'To Watch', movieList });
+}
+
+function show(req, res) {
+  const movie = movieList[req.params.id];
+  res.render('movies/show', { title: 'Movie Details', movie });
+}
 
 async function getMovieData(titles) {
   return Promise.all(titles.map(async (title) => {
@@ -22,15 +40,12 @@ function formatString(str, params) {
   return str.replace(/\{(\w+)\}/g, (m, n) => params[n]);
 }
 
-async function index(req, res) {
-  user = await User.findById(req.user.id).populate({
-    path: 'thumbsUp.0.movies.$*',
-    select: 'title -_id',
-  });
+async function searchMovies() {
   const userMovies = Array.from(user.thumbsUp[0].movies.values());
   const movieTitles = userMovies.map((movie) => movie.title).join(', ');
+  const toWatchList = movieList.map((movie) => movie.Title).join(', ');
 
-  const message = formatString(PROMPT, { movieTitles });
+  const message = formatString(PROMPT, { movieTitles, toWatchList });
   const completion = await openai.chat.completions.create({
     messages: [
       { role: 'system', content: 'You are a helpful assistant.' },
@@ -39,19 +54,47 @@ async function index(req, res) {
     model: GPT_MODEL,
   });
 
-  const answer = completion.choices[0].message.content;
-  const titles = JSON.parse(answer);
-
-  movieList = await getMovieData(titles);
-  res.render('movies/index', { title: 'To Watch', movieList });
+  let recommendations = completion.choices[0].message.content;
+  try {
+    recommendations = JSON.parse(recommendations);
+  } catch (error) {
+    console.log('JSON parse error!');
+    console.log(recommendations);
+    recommendations = null;
+  }
+  return recommendations;
 }
 
-function show(req, res) {
-  const movie = movieList[req.params.id];
-  res.render('movies/show', { title: 'Movie Details', movie });
+async function create(req, res) {
+  const titles = await searchMovies();
+  if (!titles) { res.redirect('/recommends'); return; }
+  const recommendations = await getMovieData(titles);
+  const { movies } = user.toWatch[0];
+  let needsSaving = false;
+
+  await Promise.all(recommendations.map(async (data) => {
+    const movie = await Recommendation.findOneAndUpdate(
+      { imdbID: data.imdbID },
+      { $setOnInsert: { imdbID: data.imdbID, title: data.Title } },
+      { upsert: true, new: true, runValidators: true },
+    );
+
+    if (!movies.has(movie.imdbID)) {
+      movies.set(data.imdbID, movie.id);
+      needsSaving = true;
+    } else {
+      console.log('MOVIE ALREADY EXISTS!');
+    }
+  }));
+
+  if (needsSaving) {
+    await user.save();
+  }
+  res.redirect('/recommends');
 }
 
 module.exports = {
   index,
   show,
+  create,
 };

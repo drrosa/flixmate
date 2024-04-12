@@ -6,7 +6,6 @@ const thumbsUpSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   description: String,
   movies: {
@@ -23,12 +22,11 @@ const toWatchSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   description: String,
   userPrompt: Map,
   presets: Map,
-  recommendations: {
+  movies: {
     type: Map,
     of: Schema.Types.ObjectId,
     ref: 'Recommendation',

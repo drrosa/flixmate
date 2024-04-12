@@ -19,6 +19,7 @@ passport.use(new GoogleStrategy(
         avatar: profile.photos[0].value,
       });
       user.thumbsUp.push({ name: 'My Movies', description: 'All liked movies.' });
+      user.toWatch.push({ name: 'To Watch', description: 'All recommendations.' });
       await user.save();
       return cb(null, user);
     } catch (err) {

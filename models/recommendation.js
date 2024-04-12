@@ -8,6 +8,10 @@ const recommendationSchema = new Schema({
     required: true,
     unique: true,
   },
+  title: {
+    type: String,
+    required: true,
+  },
   reasoning: {
     type: String,
     required: true,
