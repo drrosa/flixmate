@@ -12,5 +12,7 @@ router.get('/:id', ensureLoggedIn, recommendsCtrl.show);
 router.post('/', ensureLoggedIn, recommendsCtrl.create);
 // PUT /recommends/:id
 router.put('/:id', ensureLoggedIn, recommendsCtrl.toggleLike);
+// DELETE /recommends/:id
+router.delete('/:id', ensureLoggedIn, recommendsCtrl.delete);
 
 module.exports = router;

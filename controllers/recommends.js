@@ -99,9 +99,19 @@ async function toggleLike(req, res) {
   res.redirect('/recommends');
 }
 
+async function deleteOne(req, res) {
+  const { imdbID } = movieList[req.params.id];
+  const recommendation = await Recommendation.findById(user.toWatch[0].movies.get(imdbID));
+  await Recommendation.findByIdAndDelete(recommendation.id);
+  user.toWatch[0].movies.delete(imdbID);
+  await user.save();
+  res.redirect('/recommends');
+}
+
 module.exports = {
   index,
   show,
   create,
   toggleLike,
+  delete: deleteOne,
 };

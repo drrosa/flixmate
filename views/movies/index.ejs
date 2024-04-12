@@ -25,6 +25,7 @@
         <th>Title</th>
         <th>Release<br>Year</th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -36,6 +37,11 @@
             <td>
               <form action="/recommends/<%= idx %>?_method=PUT" method="POST">
                 <button class="<%= movie.isLiked ? '' : 'grayscale' %>" id="like" type="submit"><img src="/images/like.png" alt="Toggle Like"></button>
+              </form>
+            </td>
+            <td>
+              <form action="/recommends/<%= idx %>?_method=DELETE" method="POST">
+                <button id="delete" type="submit"><strong>X</strong></button>
               </form>
             </td>
           <% } %>
