@@ -32,6 +32,13 @@
         <tr>
           <td><a href="<%- title === 'My Movies' ? '/movies/' : '/recommends/' %><%= idx %>"><%= movie.Title %></a></td>
           <td><%= movie.Year %></td>
+          <% if (title === 'To Watch') { %>
+            <td>
+              <form action="/recommends/<%= idx %>?_method=PUT" method="POST">
+                <button class="<%= movie.isLiked ? '' : 'grayscale' %>" id="like" type="submit"><img src="/images/like.png" alt="Toggle Like"></button>
+              </form>
+            </td>
+          <% } %>
         </tr>
         <% }); %>
     </tbody>

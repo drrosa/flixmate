@@ -10,5 +10,7 @@ router.get('/', ensureLoggedIn, recommendsCtrl.index);
 router.get('/:id', ensureLoggedIn, recommendsCtrl.show);
 // POST /recommends
 router.post('/', ensureLoggedIn, recommendsCtrl.create);
+// PUT /recommends/:id
+router.put('/:id', ensureLoggedIn, recommendsCtrl.toggleLike);
 
 module.exports = router;

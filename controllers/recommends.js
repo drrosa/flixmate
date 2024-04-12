@@ -19,7 +19,10 @@ async function index(req, res) {
   const imdbIDs = Array.from(user.toWatch[0].movies.keys());
   movieList = await Promise.all(imdbIDs.map(async (imdbID) => {
     const response = await fetch(`${URL}&i=${imdbID}`);
-    return response.json();
+    const recommendation = await Recommendation.findById(user.toWatch[0].movies.get(imdbID));
+    const movieData = await response.json();
+    movieData.isLiked = recommendation.liked;
+    return movieData;
   }));
   res.render('movies/index', { title: 'To Watch', movieList });
 }
@@ -73,13 +76,8 @@ async function create(req, res) {
   let needsSaving = false;
 
   await Promise.all(recommendations.map(async (data) => {
-    const movie = await Recommendation.findOneAndUpdate(
-      { imdbID: data.imdbID },
-      { $setOnInsert: { imdbID: data.imdbID, title: data.Title } },
-      { upsert: true, new: true, runValidators: true },
-    );
-
-    if (!movies.has(movie.imdbID)) {
+    const movie = await Recommendation.create({ imdbID: data.imdbID, title: data.Title });
+    if (!movies.has(data.imdbID)) {
       movies.set(data.imdbID, movie.id);
       needsSaving = true;
     } else {
@@ -93,8 +91,17 @@ async function create(req, res) {
   res.redirect('/recommends');
 }
 
+async function toggleLike(req, res) {
+  const { imdbID } = movieList[req.params.id];
+  const recommendation = await Recommendation.findById(user.toWatch[0].movies.get(imdbID));
+  recommendation.liked = !recommendation.liked;
+  await recommendation.save();
+  res.redirect('/recommends');
+}
+
 module.exports = {
   index,
   show,
   create,
+  toggleLike,
 };

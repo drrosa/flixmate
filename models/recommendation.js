@@ -14,7 +14,7 @@ const recommendationSchema = new Schema({
   },
   reasoning: {
     type: String,
-    required: true,
+    default: null,
   },
   liked: {
     type: Boolean,

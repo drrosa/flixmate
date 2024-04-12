@@ -64,3 +64,30 @@ table {
 #movie-detail span {
   font-weight: bold;
 }
+
+button#like, button#like img {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+button#like img {
+  width: 2vmin;
+  height: auto;
+}
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
+td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+form {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
