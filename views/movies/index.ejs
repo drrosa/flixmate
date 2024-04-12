@@ -20,14 +20,16 @@
 
 <div id="movie-list">
   <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Release<br>Year</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
+    <% if (movieList.length > 0) { %>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Release<br>Year</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+    <% } %>
     <tbody>
       <% movieList.forEach(function(movie, idx) {  %>
         <tr>
@@ -41,7 +43,7 @@
             </td>
             <td>
               <form action="/recommends/<%= idx %>?_method=DELETE" method="POST">
-                <button id="delete" type="submit"><strong>X</strong></button>
+                <button id="delete" type="submit"><img src="/images/trash.svg" alt="Trash Can"></button>
               </form>
             </td>
           <% } %>
